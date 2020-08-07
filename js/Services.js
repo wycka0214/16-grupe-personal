@@ -7,10 +7,39 @@ class Services {
     constructor(selector, data) {
         this.selector = selector;
         this.data = data;
+
+        this.DOM = null;
+    }
+
+    isValidSelector() {
+        if (typeof this.selector !== 'string') {
+            console.warn('Selector should be a "string" type.');
+            return false;
+        }
+        if (this.selector === '') {
+            console.warn('Selector should not be an empty string.');
+            return false;
+        }
+
+        this.DOM = document.querySelector(this.selector);
+        if (!this.DOM) {
+            console.warn('Could not find any element by given selector.');
+            return false;
+        }
+
+        return true;
     }
 
     render() {
-        console.log('Rendering services...');
+        if (!this.isValidSelector()) {
+            return;
+        }
+
+        this.DOM.innerHTML = `<div class="list">
+                                <div class="service">Service 1</div>
+                                <div class="service">Service 2</div>
+                                <div class="service">Service 3</div>
+                            </div>`;
     }
 }
 
