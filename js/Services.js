@@ -35,10 +35,17 @@ class Services {
             return;
         }
 
+        let HTML = '';
+        for (const service of this.data) {
+            HTML += `<div class="service">
+                        <i class="fa fa-${service.icon}"></i>
+                        <a href="${service.link}">${service.name}</a>
+                        <p>${service.description}</p>
+                    </div>`;
+        }
+
         this.DOM.innerHTML = `<div class="list">
-                                <div class="service">Service 1</div>
-                                <div class="service">Service 2</div>
-                                <div class="service">Service 3</div>
+                                ${HTML}
                             </div>`;
     }
 }
