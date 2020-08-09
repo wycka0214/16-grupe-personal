@@ -1,0 +1,11 @@
+.row > h4 {
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+.row > h6 {
+    letter-spacing: unset;  
+}
