@@ -49,16 +49,13 @@ class Services {
     render() {
         let HTML = '';
         for (const service of this.dataServices) {
-            HTML += `<div class="service">
+            HTML += `<div class="service col-12 col-md-6 col-lg-4">
                         <i class="fa fa-${service.icon}"></i>
                         <a href="${service.link}">${service.name}</a>
                         <p>${service.description}</p>
                     </div>`;
         }
-
-        this.DOM.innerHTML = `<div class="list">
-                                ${HTML}
-                            </div>`;
+        this.DOM.innerHTML = HTML;
     }
 }
 

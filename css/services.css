@@ -1,0 +1,25 @@
+.services-list {
+
+}
+    .services-list > .service {
+        padding: 40px 0;
+        text-align: center;
+    }
+        .services-list > .service > .fa {
+            
+        }
+        .services-list > .service > a {
+            display: inline-block;
+            width: 100%;
+            margin: 40px 0 20px 0;
+            color: #333;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 20px;
+            text-decoration: none;
+        }
+        .services-list > .service > p {
+            display: inline-block;
+            width: 100%;
+            color: #999;
+        }
