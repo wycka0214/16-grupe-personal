@@ -1,14 +1,28 @@
+import { ajax } from "./ajax.js";
+
 class Services {
     /**
      * Constructor for Services object
      * @param {string} selector CSS-like selector for finding location for new content rendering
-     * @param {Array} data list of objects that defines each service
+     * @param {string} dataURL JSON file name to be requested from server's data folder
+     * @returns {Services} Returns Services object
      */
-    constructor(selector, data) {
+    constructor(selector, dataURL) {
         this.selector = selector;
-        this.data = data;
+        this.dataURL = dataURL;
 
         this.DOM = null;
+        this.dataServices = null;
+
+        this.init();
+    }
+
+    async init() {
+        if (!this.isValidSelector()) {
+            return;
+        }
+
+        this.dataServices = await ajax(this.dataURL);
 
         this.render();
     }
@@ -33,12 +47,8 @@ class Services {
     }
 
     render() {
-        if (!this.isValidSelector()) {
-            return;
-        }
-
         let HTML = '';
-        for (const service of this.data) {
+        for (const service of this.dataServices) {
             HTML += `<div class="service">
                         <i class="fa fa-${service.icon}"></i>
                         <a href="${service.link}">${service.name}</a>
