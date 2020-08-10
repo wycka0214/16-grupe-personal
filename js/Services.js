@@ -9,6 +9,8 @@ class Services {
         this.data = data;
 
         this.DOM = null;
+
+        this.render();
     }
 
     isValidSelector() {
