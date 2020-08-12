@@ -1,20 +1,38 @@
 [
     {
-        "name": "Web development",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ad tempora quae non exercitationem at?",
-        "link": "#",
-        "icon": "globe"
-    },
-    {
         "name": "Web design",
         "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ad tempora quae non exercitationem at?",
         "link": "#",
-        "icon": "globe"
+        "icon": "pie-chart"
     },
     {
-        "name": "UX",
+        "name": "Web development",
         "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ad tempora quae non exercitationem at?",
         "link": "#",
-        "icon": "globe"
+        "icon": "laptop"
+    },
+    {
+        "name": "Photography",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ad tempora quae non exercitationem at?",
+        "link": "#",
+        "icon": "camera"
+    },
+    {
+        "name": "Clipping path",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ad tempora quae non exercitationem at?",
+        "link": "#",
+        "icon": "picture-o"
+    },
+    {
+        "name": "Apps interface",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ad tempora quae non exercitationem at?",
+        "link": "#",
+        "icon": "mobile"
+    },
+    {
+        "name": "Graphic design",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ad tempora quae non exercitationem at?",
+        "link": "#",
+        "icon": "rocket"
     }
 ]
