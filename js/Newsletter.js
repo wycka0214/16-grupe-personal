@@ -1,10 +1,10 @@
-import { Ajax } from './Ajax.js';
+import { ajax } from './Ajax.js';
 
 class Newsletter {
     constructor(params) {
         this.selector = params.selector;
         this.insertPosition = params.insertPosition;
-        this.DOM = null;
+        this.parentDOM = null;
 
         this.init();
     }
@@ -27,13 +27,11 @@ class Newsletter {
             return false;
         }
 
-        this.DOM = document.querySelector(this.selector);
-        if (!this.DOM) {
+        this.parentDOM = document.querySelector(this.selector);
+        if (!this.parentDOM) {
             console.warn('Could not find any element by given selector.');
             return false;
         }
-
-        // TODO: validate this.insertPosition
 
         return true;
     }
@@ -56,10 +54,19 @@ class Newsletter {
     }
 
     render() {
-        // TODO: pakeisti i .insertAdjacentHTML()
-        this.DOM.innerHTML = `<form class="form">
-                                NEWSLETTER FORM
-                            </form>`;
+        const positionOptions = ['beforebegin', 'afterbegin', 'beforeend', 'afterend'];
+        const HTML = `<form class="form">
+                        <input type="email" value="" placeholder="Enter email address">
+                        <div class="btn fa fa-long-arrow-right"></div>
+                        <div class="messages error"></div>
+                    </form>`;
+
+        if (this.insertPosition &&
+            positionOptions.includes(this.insertPosition)) {
+            this.parentDOM.insertAdjacentHTML(this.insertPosition, HTML);
+        } else {
+            this.parentDOM.innerHTML += HTML;
+        }
     }
 }
 

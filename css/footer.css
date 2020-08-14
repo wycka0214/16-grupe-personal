@@ -1,3 +1,36 @@
 footer {
     color: #fff;
 }
+
+
+footer .form {
+    display: inline-block;
+    width: 100%;
+}
+    footer .form > input {
+        display: inline-block;
+        width: calc(100% - 50px);
+        float: left;
+        padding: 10px;
+        line-height: 25px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+    }
+    footer .form > .btn {
+        display: inline-block;
+        float: left;
+    }
+    footer .form > .messages {
+        display: none;
+        width: 100%;
+        float: left;
+        margin-top: 10px;
+        color: green;
+    }
+        footer .form > .messages.show {
+            display: inline-block;
+        }
+        footer .form > .messages.error {
+            color: red;
+        }
