@@ -12,5 +12,10 @@ Site published at https://front-end-by-rimantas.github.io/16-grupe-personal/
 
 Design: [Personal portfolio template](https://colorlib.com/preview/theme/personal/index.html)
 
-### Authors
+
+## Project features
+- repetitive content is generated/rendered;
+- all data is pulled from server;
+
+## Authors
 [Rimantas](https://github.com/belauzas)
