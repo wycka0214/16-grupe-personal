@@ -58,34 +58,40 @@ class Newsletter {
 
     submitForm() {
         this.email = this.inputDOM.value;
-        if (!Newsletter.isValidEmail(this.email)) {
-            this.displayFormMessage();
+        const validationResult = Newsletter.isValidEmail(this.email);
+        if (!validationResult.valid) {
+            this.displayFormMessage(validationResult.messages, 'error');
+        } else {
+            this.clearFormMessage();
         }
 
         this.sendRequest();
     }
 
     static isValidEmail(email) {
-        // console.log('tikriname:', email);
+        let valid = true;
+        let messages = [];
 
         // 0. tekstas
         if (typeof email !== 'string') {
-            console.warn('ERROR: email turi buti tekstinis.');
-            return false;
+            return {
+                valid: false,
+                messages: ['Email turi buti tekstinis']
+            }
         }
 
         const emailLength = email.length;
 
         // 1. ilgis - min 7 simboliai (a@a1.lt)
         if (emailLength < 7) {
-            console.warn('ERROR: email ne maziau 7 simboliu.');
-            return false;
+            messages.push('email ne maziau 7 simboliu.');
+            valid = false;
         }
 
         // 2. ilgis - max 100
         if (emailLength > 100) {
-            console.warn('ERROR: email ne daugiau 100 simboliu.');
-            return false;
+            messages.push('email ne daugiau 100 simboliu.');
+            valid = false;
         }
 
         // 3. @ === 1
@@ -96,21 +102,21 @@ class Newsletter {
             if (email[i] === '@' && etaPosition === null) etaPosition = i;
         }
         if (etaCount !== 1) {
-            console.warn('ERROR: email tik vienas @ simbolis.');
-            return false;
+            messages.push('email tik vienas @ simbolis.');
+            valid = false;
         }
 
         // 4. pries @ - bent 1 simbolis
         if (email[0] === '@') {
-            console.warn('ERROR: email turi tureti local-part (tekstas priesais @ simboli).');
-            return false;
+            messages.push('email turi tureti local-part (tekstas priesais @ simboli).');
+            valid = false;
         }
 
         // 5. uz @ - min 5 simboliai
         const symbolsAfterEta = emailLength - etaPosition - 1;
         if (symbolsAfterEta < 5) {
-            console.warn('ERROR: email turi tureti domain-part is min 5 simboliu (uz @).');
-            return false;
+            messages.push('email turi tureti domain-part is min 5 simboliu (uz @).');
+            valid = false;
         }
 
         // 6. taskas - bent vienas uz @
@@ -119,27 +125,27 @@ class Newsletter {
             if (email[i] === '.') dotCount++;
         }
         if (dotCount === 0) {
-            console.warn('ERROR: email domain-part turi tureti bent viena taska.');
-            return false;
+            messages.push('email domain-part turi tureti bent viena taska.');
+            valid = false;
         }
 
         // 7. taskas - negali buti pirmas simbolis uz @
         if (email[etaPosition + 1] === '.') {
-            console.warn('ERROR: email domain-part negali prasideti tasku.');
-            return false;
+            messages.push('email domain-part negali prasideti tasku.');
+            valid = false;
         }
 
         // 8. taskas - negali buti 2 is eiles (niekur)
         if (email.includes('..')) {
-            console.warn('ERROR: email negali tureti dvieju is eiles einanciu tasku.');
-            return false;
+            messages.push('email negali tureti dvieju is eiles einanciu tasku.');
+            valid = false;
         }
 
         // 9. taskas - gali buti trecias arba ketvirtas (arciausiai) nuo galo uz @
         if (email[emailLength - 2] === '.' ||
             email[emailLength - 1] === '.') {
-            console.warn('ERROR: taskas negali buti paskutinis arba pries paskutinis simbolis.');
-            return false;
+            messages.push('taskas negali buti paskutinis arba pries paskutinis simbolis.');
+            valid = false;
         }
 
         // 10. validus - tik [lotyniskos/angliskos raides, @, ., [0..9]]
@@ -151,16 +157,42 @@ class Newsletter {
 
         for (const letter of email) {
             if (!whitelist.includes(letter)) {
-                console.warn(`ERROR: "${letter}" neleidzimas email adrese.`);
-                return false;
+                messages.push(`ERROR: "${letter}" neleidzimas email adrese.`);
+                valid = false;
             }
         }
 
-        return true;
+        return { valid, messages, email };
     }
 
-    displayFormMessage() {
+    clearFormMessage() {
+        this.messagesDOM.classList.remove('show');
+        this.messagesDOM.innerHTML = '';
+    }
+
+    displayFormMessage(messages, messagesType = 'error') {
         // TODO: atvaizduoja tiek formos errorus, tiek ir sekminga subscribe ivyki
+
+        console.log(messages);
+        let HTML = '';
+        for (const msg of messages) {
+            HTML += `<li>${msg}</li>`;
+        }
+        this.messagesDOM.innerHTML = HTML;
+        this.messagesDOM.classList.add('show');
+
+        switch (messagesType) {
+            case 'error':
+                // TODO: padarom, jog zinutes butu raudonos
+                break;
+
+            case 'success':
+                // TODO: padarom, jog zinutes butu zalios
+                break;
+
+            default:
+                throw 'ERROR: nenumatytas zinuciu tipas.';
+        }
     }
 
     sendRequest() {
@@ -172,7 +204,7 @@ class Newsletter {
         const HTML = `<form class="form">
                         <input type="email" value="" placeholder="Enter email address">
                         <div class="btn fa fa-long-arrow-right"></div>
-                        <div class="messages error"></div>
+                        <ol class="messages error"></ol>
                     </form>`;
 
         if (this.insertPosition &&
