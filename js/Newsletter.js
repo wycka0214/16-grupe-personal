@@ -60,7 +60,7 @@ class Newsletter {
         this.email = this.inputDOM.value;
         const validationResult = Newsletter.isValidEmail(this.email);
         if (!validationResult.valid) {
-            this.displayFormMessage(validationResult.messages, 'error');
+            return this.displayFormMessage(validationResult.messages, 'error');
         } else {
             this.clearFormMessage();
         }
@@ -173,7 +173,6 @@ class Newsletter {
     displayFormMessage(messages, messagesType = 'error') {
         // TODO: atvaizduoja tiek formos errorus, tiek ir sekminga subscribe ivyki
 
-        console.log(messages);
         let HTML = '';
         for (const msg of messages) {
             HTML += `<li>${msg}</li>`;
@@ -183,11 +182,11 @@ class Newsletter {
 
         switch (messagesType) {
             case 'error':
-                // TODO: padarom, jog zinutes butu raudonos
+                this.messagesDOM.classList.add('error');
                 break;
 
             case 'success':
-                // TODO: padarom, jog zinutes butu zalios
+                this.messagesDOM.classList.remove('error');
                 break;
 
             default:
@@ -196,7 +195,15 @@ class Newsletter {
     }
 
     sendRequest() {
+        // const email = this.inputDOM.value;
+
         // TODO: naudojantis Ajax funkcija, siunciame email i serveri
+        const submitSuccess = true;
+        if (submitSuccess) {
+            this.displayFormMessage(['Subscribed successfully!'], 'success');
+        } else {
+            this.displayFormMessage(['You already subscribed!'], 'error');
+        }
     }
 
     render() {
