@@ -23,6 +23,15 @@ p {
     line-height: 22px;
     text-align: center;
 }
+.text-center {
+    text-align: center;
+}
 img {
     width: 100%;
+}
+
+@media(min-width: 786px) {
+    p {
+        text-align: left;
+    }
 }
