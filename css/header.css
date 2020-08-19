@@ -57,6 +57,10 @@ nav {
         text-transform: uppercase;
         color: #fff;
     }
+        nav > a:hover,
+        nav > a.active {
+            color: #36f;
+        }
 
 .expanded .menu-icons > .fa.fa-bars {
     display: none;

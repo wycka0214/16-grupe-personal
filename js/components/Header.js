@@ -1,3 +1,5 @@
+import menu from '../../data/main-menu.js';
+
 class Header {
     constructor(params) {
         this.selector = params.selector;
@@ -46,6 +48,11 @@ class Header {
     }
 
     render() {
+        let menuHTML = '';
+        for (const link of menu) {
+            menuHTML += `<a href="${location.origin + link.href}">${link.name}</a>`;
+        }
+
         this.DOM.innerHTML = `<div class="row">
                                 <div class="col-12">
                                     <img class="logo" src="${location.origin}/img/logo.png" alt="Personal portfolio logo">
@@ -54,11 +61,7 @@ class Header {
                                         <i class="fa fa-times"></i>
                                     </div>
                                     <div class="nav-background"></div>
-                                    <nav>
-                                        <a href="#">Home</a>
-                                        <a href="#">Services</a>
-                                        <a href="#">About me</a>
-                                    </nav>
+                                    <nav>${menuHTML}</nav>
                                 </div>
                             </div>`;
 
