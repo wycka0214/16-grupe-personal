@@ -50,7 +50,8 @@ class Header {
     render() {
         let menuHTML = '';
         for (const link of menu) {
-            menuHTML += `<a href="${location.origin + link.href}">${link.name}</a>`;
+            console.log(link);
+            menuHTML += `<a ${location.pathname === link.href ? 'class="active"' : ''} href="${location.origin + link.href}">${link.name}</a>`;
         }
 
         this.DOM.innerHTML = `<div class="row">
