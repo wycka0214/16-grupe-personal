@@ -2,6 +2,10 @@
     padding: 20px 0;
 }
 
+#main_header .col-12 {
+    justify-content: space-between;  
+}
+
 .logo {
     display: inline-block;
     width: auto;
@@ -50,6 +54,7 @@ nav {
     nav > a {
         display: inline-block;
         width: 100%;
+        float: left;
         padding: 0 15px;
         line-height: 40px;
         font-size: 18px;
@@ -69,4 +74,26 @@ nav {
 .expanded .nav-background,
 .expanded nav {
     display: inline-block;
+}
+
+@media (min-width: 786px) {
+    .menu-icons,
+    .nav-background,
+    .expanded .nav-background {
+        display: none;
+    }
+
+    nav {
+        display: inline-block;
+        padding: 0;
+        position: static;
+        background-color: initial;
+        min-width: initial;
+        width: initial;
+        max-width: initial;
+    }
+        nav > a {
+            width: auto;
+            color: #333;
+        }
 }
