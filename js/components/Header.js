@@ -48,7 +48,7 @@ class Header {
     render() {
         this.DOM.innerHTML = `<div class="row">
                                 <div class="col-12">
-                                    <img class="logo" src="./img/logo.png" alt="Personal portfolio logo">
+                                    <img class="logo" src="${location.origin}/img/logo.png" alt="Personal portfolio logo">
                                     <div class="menu-icons">
                                         <i class="fa fa-bars"></i>
                                         <i class="fa fa-times"></i>
