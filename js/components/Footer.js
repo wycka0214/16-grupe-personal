@@ -1,4 +1,4 @@
-import socialsData from '../data/socials.js';
+import socialsData from '../../data/socials.js';
 import { renderSocials } from './renderSocials.js';
 
 class Footer {
