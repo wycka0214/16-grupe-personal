@@ -22,6 +22,24 @@ export default [
         ]
     },
     {
+        href: '/blog/',
+        name: 'Blog',
+        links: [
+            {
+                href: 'post-1/',
+                name: 'Post 1'
+            },
+            {
+                href: 'post-2/',
+                name: 'Post 2'
+            },
+            {
+                href: 'post-3/',
+                name: 'Post 3'
+            },
+        ]
+    },
+    {
         href: '/about-me/',
         name: 'About me'
     }

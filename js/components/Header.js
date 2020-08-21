@@ -6,6 +6,8 @@ class Header {
         this.DOM = null;
         this.menuIconsDOM = null;
         this.navBackgroundDOM = null;
+        this.mainNavDOM = null;
+        this.menuDropdownsDOM = null;
 
         this.init();
     }
@@ -45,15 +47,36 @@ class Header {
         this.navBackgroundDOM.addEventListener('click', () => {
             this.DOM.classList.remove('expanded');
         });
+
+        for (const dropdown of this.menuDropdownsDOM) {
+            dropdown.querySelector('.label').addEventListener('click', () => {
+                const currentlyExpanded = this.mainNavDOM.querySelector('.dropdown.expanded');
+                if (currentlyExpanded) {
+                    currentlyExpanded.classList.remove('expanded');
+                }
+                dropdown.classList.toggle('expanded');
+            });
+        }
+    }
+
+    renderNav(data) {
+        let HTML = '';
+        for (const item of data) {
+            if (item.links) {
+                HTML += `<div class="dropdown">
+                            <span class="label">${item.name}<i class="fa fa-angle-down"></i></span>
+                            <div class="list">
+                                ${this.renderNav(item.links)}
+                            </div>
+                        </div>`;
+            } else {
+                HTML += `<a ${location.pathname === item.href ? 'class="active"' : ''} href="${location.origin + item.href}">${item.name}</a>`;
+            }
+        }
+        return HTML;
     }
 
     render() {
-        let menuHTML = '';
-        for (const link of menu) {
-            console.log(link);
-            menuHTML += `<a ${location.pathname === link.href ? 'class="active"' : ''} href="${location.origin + link.href}">${link.name}</a>`;
-        }
-
         this.DOM.innerHTML = `<div class="row">
                                 <div class="col-12">
                                     <img class="logo" src="${location.origin}/img/logo.png" alt="Personal portfolio logo">
@@ -62,12 +85,14 @@ class Header {
                                         <i class="fa fa-times"></i>
                                     </div>
                                     <div class="nav-background"></div>
-                                    <nav>${menuHTML}</nav>
+                                    <nav>${this.renderNav(menu)}</nav>
                                 </div>
                             </div>`;
 
         this.menuIconsDOM = this.DOM.querySelector('.menu-icons');
         this.navBackgroundDOM = this.DOM.querySelector('.nav-background');
+        this.mainNavDOM = this.DOM.querySelector('nav');
+        this.menuDropdownsDOM = this.mainNavDOM.querySelectorAll('.dropdown');
     }
 }
 
